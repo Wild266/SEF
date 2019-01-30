@@ -33,9 +33,13 @@ def calcAmps(filename):
 	# how much the sound changes
 	dbDifs = [(calcDB(amps[x]) - calcDB(amps[x - 1])) for x in range(1, len(amps))]
 	#dbDifs = [abs(amps[x] - amps[x - 1]) for x in range(len(amps) - 1)]
-	dbDifChunk = [
-	max(dbDifs[x * SAMPLE_CHUNK : x * SAMPLE_CHUNK + SAMPLE_CHUNK])
-	for x in range(len(dbDifs) // 160)]
+	dbDifChunk = []
+	for x in range(len(dbDifs)):
+		mx = 0
+		for dif in dbDifs[x * SAMPLE_CHUNK : x * SAMPLE_CHUNK + SAMPLE_CHUNK]:
+			if abs(dif) > abs(mx):
+				mx = dif # preserves negativity
+		dbDifChunk.append(mx)
 	dbInt = [0 for _ in range(I_COUNT + 1)]
 	#dbInt = [[] for _ in range(101)] # range 0 .. 0.1, step = 0.001
 	# db intervals
@@ -117,13 +121,19 @@ p2 = [x * I_SIZE * p2[x] for x in range(len(p2))]
 
 print(file1)
 #display(dbDif, dbInt)
-#display(dbDif, p1, removeProp = True)
+display(dbDif, p1, removeProp = True)
 print(file2)
 #display(dbDif2, dbInt2)
-#display(dbDif, p2, removeProp = True)
+display(dbDif, p2, removeProp = True)
 
 fileSubtract = [p1[_] - p2[_] for _ in range(len(dbInt))]
-fileDivide = [p1[_] / (p2[_] + 1e-99) for _ in range(len(dbInt))]
+fileDivide = []
+for _ in range(len(dbInt)):
+	if p2[_] == 0:
+		q = p1[_]
+	else:
+		q = p1[_] / p2[_]
+	fileDivide.append(q)
 fileDivideProduct = product(fileDivide)
 
 print("Differences [file1 - file2]: ")
@@ -148,3 +158,4 @@ print("\t\tMean:", np.mean(filtered_mf2))
 print("\t",file1,"-",file2)
 print("\t\tStd. Dev:", np.std(filtered_mf1) - np.std(filtered_mf2))
 print("\t\tMean:", np.mean(filtered_mf1) - np.mean(filtered_mf2))
+input("Done! <Press enter to exit>")
