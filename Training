@@ -1,0 +1,5 @@
+# char[0] = Gender, char[2...end] = Filename
+M WaveTests/Rubiks.wav
+F WaveTests/BritishGirl.wav
+M WaveTests/enter.wav
+M WaveTests/enner.wav

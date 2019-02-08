@@ -1,0 +1,16 @@
+digraph Tree {
+node [shape=box] ;
+0 [label="meanfun <= 0.143\ngini = 0.494\nsamples = 2851\nvalue = [1267, 1584]\nclass = m"] ;
+1 [label="IQR <= 0.071\ngini = 0.076\nsamples = 1597\nvalue = [63, 1534]\nclass = m"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="gini = 0.486\nsamples = 77\nvalue = [45, 32]\nclass = f"] ;
+1 -> 2 ;
+3 [label="gini = 0.023\nsamples = 1520\nvalue = [18, 1502]\nclass = m"] ;
+1 -> 3 ;
+4 [label="meanfun <= 0.148\ngini = 0.077\nsamples = 1254\nvalue = [1204, 50]\nclass = f"] ;
+0 -> 4 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+5 [label="gini = 0.461\nsamples = 72\nvalue = [46, 26]\nclass = f"] ;
+4 -> 5 ;
+6 [label="gini = 0.04\nsamples = 1182\nvalue = [1158, 24]\nclass = f"] ;
+4 -> 6 ;
+}
