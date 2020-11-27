@@ -1,7 +1,7 @@
 import sklearn.tree
 import graphviz
-
-dt = sklearn.tree.DecisionTreeClassifier(max_depth = 4)
+d = 4
+dt = sklearn.tree.DecisionTreeClassifier(max_depth = d)
 
 voices = open("voice.csv", "r").readlines()
 labels = [x.replace("\"", "") for x in voices[0].split(",")]
@@ -24,7 +24,9 @@ for x in range(int(len(voices) * 0.9), len(voices)):
 	data = [float(d) for d in data]
 	test_y.append([gender])
 	test_X.append(data)
-print(dt.score(test_X, test_y))
+print("DEPTH: ", d)
+print("DIFFERENCE TREE SCORE: ",dt.score(test_X, test_y))
 dot = sklearn.tree.export_graphviz(dt, feature_names = labels[:-1], class_names = ["f", "m"])
 graph = graphviz.Source(dot)
 graph.render("Tree")
+input("Done! <Press enter to exit>")

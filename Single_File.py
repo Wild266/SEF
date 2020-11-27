@@ -120,3 +120,5 @@ file1 = input("File: ")
 data = getStats(file1)
 print("Raw stats =", data)
 displayStats(file1, *data)
+
+input("Done! <Press enter to exit>")

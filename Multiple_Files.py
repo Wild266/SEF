@@ -137,3 +137,4 @@ for line in files.readlines():
 	displayStats(file, *data[0])
 
 pickle.dump(stats, open("AudioStats", "wb"))
+input("Done! <Press enter to exit>")
